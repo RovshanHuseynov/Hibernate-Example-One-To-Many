@@ -1,7 +1,5 @@
 package com.rh.spring.hibernateexampleonetomany.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 
 @Entity
@@ -15,8 +13,8 @@ public class Laptop {
     @Column(name = "name")
     private String name;
 
-    @OneToOne(mappedBy = "laptop")
-    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "student_id", referencedColumnName = "id")
     private Student student;
 
     public Laptop() {

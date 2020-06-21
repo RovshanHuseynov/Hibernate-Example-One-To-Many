@@ -1,6 +1,9 @@
 package com.rh.spring.hibernateexampleonetomany.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "student")
@@ -13,16 +16,16 @@ public class Student {
     @Column(name = "name")
     private String name;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "laptop_id", referencedColumnName = "id")
-    private Laptop laptop;
+    @OneToMany(mappedBy = "student")
+    @JsonIgnore
+    private List<Laptop> laptops;
 
     public Student() {
     }
 
-    public Student(String name, Laptop laptop) {
+    public Student(String name, List<Laptop> laptops) {
         this.name = name;
-        this.laptop = laptop;
+        this.laptops = laptops;
     }
 
     public int getId() {
@@ -41,12 +44,12 @@ public class Student {
         this.name = name;
     }
 
-    public Laptop getLaptop() {
-        return laptop;
+    public List<Laptop> getLaptops() {
+        return laptops;
     }
 
-    public void setLaptop(Laptop laptop) {
-        this.laptop = laptop;
+    public void setLaptops(List<Laptop> laptops) {
+        this.laptops = laptops;
     }
 
     @Override
@@ -54,7 +57,7 @@ public class Student {
         return "Student{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", laptop=" + laptop +
+                ", laptops=" + laptops +
                 '}';
     }
 }
